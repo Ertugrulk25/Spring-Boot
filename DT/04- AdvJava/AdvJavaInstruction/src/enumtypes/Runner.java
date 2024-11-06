@@ -14,6 +14,14 @@ public class Runner {
         printMessage("HIGH ");
         printMessage("......");
 
+        //-----------------------------------------------
+
+        printMessageEnum(PasswordStrengthEnum.LOW);
+        printMessageEnum(PasswordStrengthEnum.MEDIUM);
+        printMessageEnum(PasswordStrengthEnum.HIGH);
+
+
+
     }
 
 
@@ -35,8 +43,23 @@ public class Runner {
 
     }
 
-    //TODO:kullanıcıya parametrede Enum ile verilen password gücüne göre
+    //kullanıcıya parametrede Enum ile verilen password gücüne göre
     //mesaj gösteren bir metod yazalım.
+    public static void printMessageEnum(PasswordStrengthEnum strength){
+
+        if (strength.equals(PasswordStrengthEnum.LOW)){
+        //if (strength.ordinal()==0){
+            System.out.println("Dikkat şifreniz yetersiz seviyededir!!!");
+        } else if (strength.equals(PasswordStrengthEnum.MEDIUM)) {
+            System.out.println("Şifre gücünüz orta düzeydedir.");
+        } else if (strength.equals(PasswordStrengthEnum.HIGH)) {
+            System.out.println("Tebrikler, şifre gücünüz yüksek düzeydedir:)");
+        }
+
+        System.out.println("Enum sırası : "+strength.ordinal());//enum typeın sırasını
+        System.out.println("Enum ismi : "+strength.name());//enum typeın ismini gösterir
+
+    }
 
 
 }
