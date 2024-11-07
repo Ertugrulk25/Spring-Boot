@@ -13,6 +13,7 @@ public class ThreadCreationWays {
         //1:YOL
         Thread thread1=new MyThread();
         thread1.start();//threadi başlatır ve run metodunu çağırır
+        //thread1.run();//yeni bir thread başlatılmaz, main thread
         thread1.setName("threadcik:)");
 
 
