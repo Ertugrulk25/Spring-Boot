@@ -148,7 +148,39 @@ public class UserService {
 
     //6-adım:password doğrulama metodu:ÖDEVV
     private boolean validatePassword(String password){
-        return true;
+        boolean isValid;
+
+        boolean hasSpace=password.contains(" ");
+        boolean isLengthGtSix=password.length()>=6;
+        boolean upperLetter=password.replaceAll("[^A-Z]","").length()>0;
+        boolean lowerLetter=password.replaceAll("[^a-z]","").length()>0;
+        boolean digits=password.replaceAll("[\\D]","").length()>0;
+        boolean symbols=password.replaceAll("[\\P{Punct}]","").length()>0;
+
+        if (hasSpace){
+            System.out.println("Şifre boşluk içeremez!");
+        } else if (!isLengthGtSix) {
+            System.out.println("Şifre en az 6 karakter olmalıdır! ");
+        } else if (!upperLetter) {
+            System.out.println("Şifre büyük harf içermelidir!");
+        }else if (!lowerLetter) {
+            System.out.println("Şifre küçük harf içermelidir!");
+        }else if (!digits) {
+            System.out.println("Şifre rakam içermelidir!");
+        }else if (!symbols) {
+            System.out.println("Şifre sembol içermelidir!");
+        }
+
+        isValid=  !hasSpace && isLengthGtSix
+                            && upperLetter
+                            && lowerLetter
+                            && digits
+                            && symbols;
+
+        if (!isValid){
+            System.out.println("Şifre geçersiz, tekrar deneyiniz!");
+        }
+        return isValid;
     }
 
 
