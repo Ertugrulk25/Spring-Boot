@@ -25,8 +25,6 @@ public class Student {
     private String name;//not null
     private int grade;
 
-    //todo:transient,Lob
-
 
     //getter-setter
     public Integer getId() {
