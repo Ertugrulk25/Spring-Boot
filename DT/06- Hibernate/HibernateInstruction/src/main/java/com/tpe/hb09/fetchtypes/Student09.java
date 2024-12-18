@@ -25,7 +25,7 @@ public class Student09 {
 
     private int grade;
 
-    @OneToMany(mappedBy = "student")//default fetchtype:lazy
+    @OneToMany(mappedBy = "student",fetch = FetchType.EAGER)//default fetchtype:lazy
     private List<Book09> bookList=new ArrayList<>();
 
     public Student09() {
