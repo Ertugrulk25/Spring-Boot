@@ -24,7 +24,7 @@ import org.hibernate.cfg.Configuration;
 3) Query Cache
             * Query ler için kullanılıyor
             * hibernate.cfg.xml den active edilebilir
-            * first/second level cache ile kullanılabilir
+            * second level cache ile kullanılabilir
             * aynı sorgunun sonucu cache e alınır.
 
  */
