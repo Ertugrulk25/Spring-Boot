@@ -2,7 +2,9 @@ package com.tpe.controller;
 
 import com.tpe.config.HibernateUtils;
 import com.tpe.repository.HotelRepository;
+import com.tpe.repository.RoomRepository;
 import com.tpe.service.HotelService;
+import com.tpe.service.RoomService;
 
 import java.util.Scanner;
 
@@ -15,6 +17,9 @@ public class HotelManagementSystem {
         //NOT:sadece 1'er tane service ve repo objeleri oluşturulur ve tüm uygulamada kullanılır.
         HotelRepository hotelRepository=new HotelRepository();
         HotelService hotelService=new HotelService(hotelRepository);
+
+        RoomRepository roomRepository=new RoomRepository();
+        RoomService roomService=new RoomService(roomRepository,hotelService);
 
         int choice;
 
@@ -35,7 +40,7 @@ public class HotelManagementSystem {
                     displayHotelOperationsMenu(hotelService);
                     break;
                 case 2:
-                    displayRoomOperationsMenu();
+                    displayRoomOperationsMenu(roomService);
                     break;
                 case 3:
                     displayGuestOperationsMenu();
@@ -85,13 +90,19 @@ private static void displayHotelOperationsMenu(HotelService hotelService) {
                 hotelService.saveHotel();
                 break;
             case 2:
+                //2-a:hotel bulma
+                System.out.println("Enter hotel ID: ");
+                Long id= scanner.nextLong();
+                scanner.nextLine();
 
+                hotelService.findHotelById(id);
                 break;
             case 3:
 
                 break;
             case 4:
-
+                //3-a:tüm otelleri listeleme
+                hotelService.getAllHotels();
                 break;
             case 5:
 
@@ -109,10 +120,9 @@ private static void displayHotelOperationsMenu(HotelService hotelService) {
 }
 
     //room operations
-    private static void displayRoomOperationsMenu() {
+    private static void displayRoomOperationsMenu(RoomService roomService) {
 
-
-
+        //RoomService roomService1=new RoomService();
         System.out.println("Room Operation Menu");
         boolean exit = false;
         while (!exit) {
@@ -129,15 +139,18 @@ private static void displayHotelOperationsMenu(HotelService hotelService) {
 
             switch (choice) {
                 case 1:
-
+                    //4-a:bir odayı oluşturma
+                    roomService.saveRoom();
                     break;
                 case 2:
+                    //5-a:ÖDEV
 
                     break;
                 case 3:
 
                     break;
                 case 4:
+                    //6-a:ÖDEV
 
                     break;
                 case 0:
