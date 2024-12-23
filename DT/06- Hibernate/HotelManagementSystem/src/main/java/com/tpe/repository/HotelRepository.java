@@ -56,4 +56,40 @@ public class HotelRepository {
         }
         return null;
     }
+
+    //7-c
+    public void delete(Hotel foundHotel) {
+        try {
+
+            session = HibernateUtils.getSessionFactory().openSession();
+            Transaction t = session.beginTransaction();
+
+            //delete from t_hotel where id=+foundHotel.getId
+            session.delete(foundHotel);
+
+            t.commit();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }finally {
+            HibernateUtils.closeSession(session);
+        }
+
+    }
+
+    //8-c
+    public void update(Hotel existingHotel) {
+        try {
+
+            session = HibernateUtils.getSessionFactory().openSession();
+            Transaction t = session.beginTransaction();
+
+            session.update(existingHotel);
+
+            t.commit();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }finally {
+            HibernateUtils.closeSession(session);
+        }
+    }
 }

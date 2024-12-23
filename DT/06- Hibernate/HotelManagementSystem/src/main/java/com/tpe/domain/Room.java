@@ -17,7 +17,7 @@ public class Room {
     @Column(nullable = false)
     private Integer capacity;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)//örnek
     @JoinColumn(nullable = false)
     private Hotel hotel;//bu oda hangi otelin:ID
 

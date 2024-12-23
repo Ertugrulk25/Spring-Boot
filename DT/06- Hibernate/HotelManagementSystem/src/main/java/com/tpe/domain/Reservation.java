@@ -21,7 +21,7 @@ public class Reservation {
     @JoinColumn(nullable = false)
     private Guest guest;
 
-    @ManyToOne
+    @ManyToOne//eager
     @JoinColumn(nullable = false)
     private Room room;
 

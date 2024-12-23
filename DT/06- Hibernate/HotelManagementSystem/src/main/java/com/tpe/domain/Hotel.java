@@ -21,7 +21,7 @@ public class Hotel {
     //oda listesinden 11 i çıkarsam:12,13-->room tablosunda kalmaya devam etsin
 
     ///orphanremoval:11 i tablodan da silerdi
-    @OneToMany(mappedBy = "hotel",cascade = CascadeType.REMOVE)//ilişki diğer tarafta sağlanacak
+    @OneToMany(mappedBy = "hotel",cascade = CascadeType.REMOVE,fetch =FetchType.EAGER)//ilişki diğer tarafta sağlanacak
     private List<Room> rooms=new ArrayList<>();
 
     public Hotel() {
