@@ -1,6 +1,5 @@
 package com.tpe.hb12.get_load;
 
-import com.tpe.hb11.caching.Student11;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;

@@ -1,29 +1,22 @@
-package com.tpe.hb11.caching;
+package com.tpe.recap.relations_uni;
 
 import javax.persistence.*;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Cacheable
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Student11 {
+@Table(name = "t_instructor")
+public class Instructor {//one
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
+    @Column(nullable = false)
     private String name;
 
-    private int grade;
-
-    public Student11(String name, int grade) {
-        this.name = name;
-        this.grade = grade;
-    }
-
-    public Student11() {
-    }
+    //@OneToMany//3. bir tablo:join table
+    //@JoinColumn//karşı tabloya fk ekler
+    //private List<Course>courses=new ArrayList<>();//gerek var mı?
 
     public Integer getId() {
         return id;
@@ -40,21 +33,21 @@ public class Student11 {
     public void setName(String name) {
         this.name = name;
     }
-
-    public int getGrade() {
-        return grade;
+/*
+    public List<Course> getCourses() {
+        return courses;
     }
 
-    public void setGrade(int grade) {
-        this.grade = grade;
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
     }
-
+*/
     @Override
     public String toString() {
-        return "Student11{" +
+        return "Instructor{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", grade=" + grade +
                 '}';
     }
+
 }
