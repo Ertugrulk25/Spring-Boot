@@ -1,6 +1,5 @@
-package com.tpe.hb11.caching;
+package com.tpe.hb12.hb11.caching;
 
-import com.tpe.hb10.idgeneration.Student10;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;

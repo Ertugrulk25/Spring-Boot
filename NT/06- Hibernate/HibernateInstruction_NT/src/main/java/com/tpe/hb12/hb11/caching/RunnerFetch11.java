@@ -1,4 +1,4 @@
-package com.tpe.hb11.caching;
+package com.tpe.hb12.hb11.caching;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
