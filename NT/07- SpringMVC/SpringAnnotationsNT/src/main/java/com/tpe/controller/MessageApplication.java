@@ -1,6 +1,7 @@
 package com.tpe.controller;
 
 import com.tpe.domain.Message;
+import com.tpe.repository.DbRepository;
 import com.tpe.repository.FileRepository;
 import com.tpe.repository.Repository;
 import com.tpe.service.MailService;
@@ -25,6 +26,7 @@ public class MessageApplication {
         //referansı interfaceden alalım
         //mesajı kaydedelim
         Repository repository =new FileRepository();
+        Repository repository2 =new DbRepository();
         MessageService service=new WhatsappService(repository);
         service.sendMessage(message);
         service.saveMessage(message);
