@@ -74,7 +74,7 @@ public class MessageApplicationWithSpring {
   //      service8.saveMessage(message);
 
         //default olarak singleton oluyor : bu classtan sadece bir tane bean uretiyor ve her seferinde bu beani cagiriyor!!!
-        //bu olusturulan bean'in life cycle'ini Spring yonetir ve Spring Sorumludur!!!
+        //bu olusturulan bean'in life cycle'ini Spxring yonetir ve Spring Sorumludur!!!
 
         //prototype olarak degistirebiliriz : bu ise classtan her cagrildiginda farkli bir obje uretmeyi saglar!!!
         //Beanlerin imhasından Spring sorumlu degildir
