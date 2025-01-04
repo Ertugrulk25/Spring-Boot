@@ -1,4 +1,4 @@
-package domain;
+package com.tpe.domain;
 
 public class Message {
 
@@ -11,4 +11,5 @@ public class Message {
     public void setBody(String body) {
         this.body = body;
     }
+
 }
