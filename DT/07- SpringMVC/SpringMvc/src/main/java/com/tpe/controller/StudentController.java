@@ -1,6 +1,7 @@
 package com.tpe.controller;
 
 import com.tpe.domain.Student;
+import com.tpe.exception.StudentNotFoundException;
 import com.tpe.service.IStudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -92,6 +93,35 @@ public class StudentController {
         mav.setViewName("studentForm");
         return mav;
     }
+
+    //kullanıcıdan bilgi nasıl alınır
+    //1-form/body(JSON)
+    //2-query param : /query?id=3
+    //3-path param : /3
+    //query param ve path param sadece 1 tane ise isim belirtmek opsiyonel
+
+
+    //4-bir öğrenciyi silme
+    //request : http://localhost:8080/SpringMvc/students/delete/4 + GET
+    //response :öğrenci silinir ve kalan öğrenciler gösterilir
+    @GetMapping("/delete/{id}")
+    public String deleteStudent(@PathVariable("id") Long identity){
+
+        service.deleteStudent(identity);
+
+        return "redirect:/students";
+    }
+
+    //@ExceptionHandler:try-catch bloğunun mantığıyla benzer çalışır
+    @ExceptionHandler(StudentNotFoundException.class)
+    public ModelAndView handleException(Exception exception){
+        ModelAndView modelAndView=new ModelAndView();
+        modelAndView.addObject("message",exception.getMessage());
+        modelAndView.setViewName("notFound");
+        return modelAndView;
+    }
+
+
 
 
 
