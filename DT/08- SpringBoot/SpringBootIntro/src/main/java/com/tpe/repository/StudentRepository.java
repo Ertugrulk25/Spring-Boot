@@ -10,4 +10,9 @@ public interface StudentRepository extends JpaRepository<Student,Long> {
     //JpaRepositorydeki metodlar Spring tarafından otomatik olarak implemente edilir
 
 
+    //5-
+    boolean existsByEmail(String email);
+
+
+
 }
