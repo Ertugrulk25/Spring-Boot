@@ -1,15 +1,25 @@
 package com.tpe.domain;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
 import lombok.*;
 
+import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
-@Getter//tüm fieldlar için getter methodunun tanımlanmasını sağlar
-@Setter//tüm fieldlar için setter methodunun tanımlanmasını sağlar
-@AllArgsConstructor//tüm fieldlarin icerisinde tanımlı oldugu bir cons. olusturmayi saglar
-@NoArgsConstructor//defualt cons. olusmasını sağlar
+@Getter//tüm fieldlar için getter metodunun tanımlanmasını sağlar
+@Setter//tüm fieldlar için setter metodunun tanımlanmasını sağlar
+@AllArgsConstructor//tüm fieldların parametrede verildiği cont. metodunu tanımlar
+@NoArgsConstructor//default const. metodunu tanımlar
+
+//@RequiredArgsConstructor
+//objeyi const ederken final olan zorunlu olan değerleri vereceğiz
+//public Student(String name, String lastname) {
+//        this.name = name;
+//        this.lastname = lastname;
+//        }
+
 @Entity
 public class Student {
 
@@ -18,24 +28,22 @@ public class Student {
     @Setter(AccessLevel.NONE)
     private Long id;
 
-    @NotBlank(message = "Name can not be blank!")//null, "","    ", kabul etmez
-    //@NotEmpty//null,"" kabul etmez "        " kabul eder
-    //@NotNull//null kabul etmez "" ,"       " kabul eder.
+    @NotBlank(message = "name can not be blank!")
     @Size(min = 2,max = 50,message = "name must be between 2 and 50")
-    @Column(nullable = false)
+    @Column(nullable = false,length = 50)
     /*final*/ private String name;
 
-    @NotBlank(message = "Lastname can not be blank!")
+    @NotBlank(message = "lastname can not be blank!")
     @Size(min = 2,max = 50,message = "lastname must be between 2 and 50")
     @Column(nullable = false)
-    /*final*/private String lastname;
+    /*final*/ private String lastname;
 
-    @NotNull(message = "Please provide grade")
+    @NotNull(message = "please provide grade!")
     @Column(nullable = false)
     private Integer grade;
 
-    @Email(message = "please provide valid email!!!")//aaa@bbb.ccc email formatında olmasını dogrulama
-    //@Pattern():regex ile formatlama yapmayi sağlar
+    @Email(message = "please provide valid email!")//aaa@bbb.ccc email formatında olmasını doğrulama
+    //@Pattern():regex ile format belirlenebilir
     @Column(nullable = false,unique = true)
     private String email;
 
@@ -44,52 +52,7 @@ public class Student {
 
     //getter-setter
 
-/*
-    public Long getId() {
-        return id;
-    }
+    @OneToMany(mappedBy = "student")
+    private List<Book> bookList=new ArrayList<>();
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public Integer getGrade() {
-        return grade;
-    }
-
-    public void setGrade(Integer grade) {
-        this.grade = grade;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public LocalDateTime getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(LocalDateTime createDate) {
-        this.createDate = createDate;
-    }*/
 }

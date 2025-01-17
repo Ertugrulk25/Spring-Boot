@@ -1,0 +1,137 @@
+DTO (Data Transfer Object) katmanını detaylıca açıklama
+
+DTO'nun Amacı:
+
+Veri güvenliği sağlamak
+İstemciye sadece gerekli verileri göndermek
+Veritabanı entity'lerini dış dünyadan izole etmek
+Network trafiğini optimize etmek
+Örnek Üzerinden Açıklama:
+
+Entity Sınıfı (Veritabanı Modeli)
+
+@Entity
+public class User {
+    @Id
+    private Long id;
+    private String username;
+    private String password;    // Hassas veri
+    private String email;
+    private String phoneNumber;
+    private LocalDateTime createdAt;
+    private boolean isActive;
+    // ... diğer alanlar
+}
+
+DTO Sınıfları
+
+// İstemciden veri alırken (Request)
+public class UserCreateDTO {
+    private String username;
+    private String password;
+    private String email;
+}
+
+// İstemciye veri gönderirken (Response)
+public class UserResponseDTO {
+    private Long id;
+    private String username;
+    private String email;
+    // password gönderilmiyor!
+}
+
+// Güncelleme yaparken
+public class UserUpdateDTO {
+    private String email;
+    private String phoneNumber;
+}
+
+3. Dönüşüm İşlemleri (Mapping)
+
+@Service
+@RequiredArgsConstructor
+public class UserService {
+    private final ModelMapper modelMapper;
+
+    public UserResponseDTO createUser(UserCreateDTO dto) {
+        // DTO'dan Entity'e dönüşüm
+        User user = modelMapper.map(dto, User.class);
+        user.setCreatedAt(LocalDateTime.now());
+        user.setActive(true);
+
+        // Kaydetme işlemi
+        User savedUser = userRepository.save(user);
+
+        // Entity'den DTO'ya dönüşüm
+        return modelMapper.map(savedUser, UserResponseDTO.class);
+    }
+}
+
+DTO Kullanmanın Faydaları:
+
+// Kötü Örnek (Entity kullanımı)
+@GetMapping("/{id}")
+public User getUser(@PathVariable Long id) {  // Password gibi hassas veriler açığa çıkar!
+    return userRepository.findById(id);
+}
+
+// İyi Örnek (DTO kullanımı)
+@GetMapping("/{id}")
+public UserResponseDTO getUser(@PathVariable Long id) {  // Sadece gerekli bilgiler gönderilir
+    User user = userRepository.findById(id);
+    return modelMapper.map(user, UserResponseDTO.class);
+}
+
+Veri Validasyonu:
+
+public class UserCreateDTO {
+    @NotBlank(message = "Username is required")
+    @Size(min = 3, max = 50)
+    private String username;
+
+    @Email(message = "Invalid email format")
+    private String email;
+
+    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")
+    private String password;
+}
+
+Farklı Response Yapıları:
+
+// Detaylı kullanıcı bilgisi
+public class UserDetailDTO extends UserResponseDTO {
+    private List<OrderDTO> orders;
+    private AddressDTO address;
+}
+
+// Özet kullanıcı bilgisi
+public class UserSummaryDTO {
+    private Long id;
+    private String username;
+}
+
+Versiyonlama
+
+// v1 API için DTO
+public class UserDTOv1 {
+    private String fullName;
+}
+
+// v2 API için DTO
+public class UserDTOv2 {
+    private String firstName;
+    private String lastName;
+}
+
+Ne Zaman DTO Kullanmalıyız:
+API'ler oluştururken
+Farklı servisler arası iletişimde
+Hassas verileri gizlemek istediğimizde
+İstemciye özel response yapıları oluştururken
+Validasyon kuralları eklemek istediğimizde
+DTO Kullanırken Dikkat Edilmesi Gerekenler:
+Her entity için gerekli olmayabilir
+Çok fazla DTO sınıfı karmaşıklığa yol açabilir
+Mapping işlemleri için ModelMapper gibi kütüphaneler kullanın
+DTO sınıflarını amaca göre ayırın (Request/Response)
+Validation kurallarını DTO'larda tanımlayın
